@@ -34,13 +34,26 @@ class Catalog extends React.Component<Props, State> {
 
   render() {
     const { books } = this.state;
+    const genreToBooks = {};
+    books.forEach(book => {
+      if (!genreToBooks[book.genre]) {
+        genreToBooks[book.genre] = [];
+      }
+      genreToBooks[book.genre].push(book);
+    });
 
     return (
       <div className="App">
         <Header showMenuIcon={true} showSearchBar={true} center={false} />
-        {/* Check to see if any items are found */}
         {books.length ? (
-          <BookHScroll books={books} />
+          Object.keys(genreToBooks).map(genre => (
+            <div key={genre} className="genre">
+              <div className="genreHeading">
+                {genre}
+              </div>
+              <BookHScroll books={genreToBooks[genre]} />
+            </div>
+          ))
         ) : (
           <div>
             <h2>Loading Catalog...</h2>
