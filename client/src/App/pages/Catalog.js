@@ -34,7 +34,7 @@ class Catalog extends React.Component<Props, State> {
 
     return (
       <div className="App">
-        <h1>List of Items</h1>
+        <h1>Catalog</h1>
         {/* Check to see if any items are found */}
         {list.length ? (
           <div>

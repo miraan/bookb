@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "pushd client; npm run build; popd; rm -rf build; babel src/ -d build/; cp -r client/build/ build/client/",
+    "build_server": "rm -rf build; babel src/ -d build/; cp -r client/build/ build/client/",
     "start": "node build/index.js",
     "flow": "flow"
   },
@@ -12,10 +13,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.0"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.0",
+    "lodash": "^4.17.11",
+    "morgan": "^1.9.1",
+    "pg": "^7.11.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
