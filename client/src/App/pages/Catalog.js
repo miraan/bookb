@@ -41,8 +41,8 @@ class Catalog extends React.Component<Props, State> {
           <div>
             {/* Render the list of items */}
             {books.map(book => (
-              <div>
-                {book.title}
+              <div key={book.id}>
+                {book.title} <i>by {book.author}</i>
               </div>
             ))}
           </div>

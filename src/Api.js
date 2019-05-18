@@ -26,6 +26,25 @@ export default class Api {
 
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
+
+    if (process.env.DEV_LOCAL) {
+        // This makes debugging the web apps locally easier.
+      this.express.use((req: any, res: any, next: any) => {
+        res.header(
+          'Access-Control-Allow-Origin',
+          '*'
+        )
+        res.header(
+          'Access-Control-Allow-Headers',
+          '*'
+        )
+        res.header(
+          'Access-Control-Allow-Methods',
+          '*'
+        )
+        next()
+      });
+    }
   }
 
   initRoutes = () => {
