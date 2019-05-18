@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf build; babel src/ -d build/; cp -r client/build/ build/client/",
+    "build": "pushd client; npm run build; popd; rm -rf build; babel src/ -d build/; cp -r client/build/ build/client/",
     "start": "node build/index.js",
     "flow": "flow"
   },
