@@ -23,6 +23,7 @@ div {
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  padding-top: 70px;
 }
 
 ul {
@@ -44,4 +45,50 @@ button {
   border-color: #000;
   border-radius: 5px;
   padding: 10px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 50px;
+  background-color: rgba(255, 0, 0, 0.3);
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: row;
+}
+
+.menuIcon {
+  width: 20px;
+  margin-top: 2px;
+  margin-right: 15px;
+}
+
+.menuIconLine {
+  width: 100%;
+  height: 2px;
+  margin-bottom: 5px;
+  background-color: #000;
+}
+
+.book {
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bookImage {
+  width: 130px;
+}
+
+.searchInput {
+  padding: 2px;
+  width: 30vw;
 }

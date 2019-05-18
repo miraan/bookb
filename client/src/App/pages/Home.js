@@ -1,10 +1,12 @@
+// @flow
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Header from '../components/Header';
 
 const Home = () => (
   <div className="App">
-    <h1>BookB</h1>
+    <Header showMenuIcon={false} center showSearchBar={false} />
     <h2>Borrow Unlimited Books</h2>
     <h3>Same Day Delivery and Return</h3>
     <h3><i>How Our Subscription Works</i></h3>
