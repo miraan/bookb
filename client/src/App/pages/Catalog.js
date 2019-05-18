@@ -8,7 +8,7 @@ type State = {
   list: Array<string>
 };
 
-class List extends React.Component<Props, State> {
+class Catalog extends React.Component<Props, State> {
   // Initialize the state
   constructor(props: Props) {
     super(props);
@@ -56,4 +56,4 @@ class List extends React.Component<Props, State> {
   }
 }
 
-export default List;
+export default Catalog;
