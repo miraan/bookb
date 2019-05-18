@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import Api from '../../Api';
-import Book from '../components/Book'
 import Header from '../components/Header'
+import BookHScroll from '../components/BookHScroll'
 
 import type {Book as BookType} from '../../types';
 
@@ -40,12 +40,7 @@ class Catalog extends React.Component<Props, State> {
         <Header showMenuIcon={true} showSearchBar={true} center={false} />
         {/* Check to see if any items are found */}
         {books.length ? (
-          <div>
-            {/* Render the list of items */}
-            {books.map(book => (
-              <Book key={book.id} book={book} />
-            ))}
-          </div>
+          <BookHScroll books={books} />
         ) : (
           <div>
             <h2>Loading Catalog...</h2>

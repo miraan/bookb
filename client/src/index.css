@@ -78,17 +78,31 @@ button {
   background-color: #000;
 }
 
+.searchInput {
+  padding: 2px;
+  width: 30vw;
+}
+
+.bookHScroll {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+}
+
 .book {
   width: 130px;
   display: flex;
   flex-direction: column;
+  margin-left: 15px;
+}
+
+.book > p {
+  font-size: 13px;
 }
 
 .bookImage {
-  width: 130px;
-}
-
-.searchInput {
-  padding: 2px;
-  width: 30vw;
+  width: 104px;
+  height: 160px;
+  object-fit: cover;
 }

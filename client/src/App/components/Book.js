@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import truncate from '../../flib/truncate';
 
 import type { Book as BookType } from '../../types';
 
@@ -13,8 +14,7 @@ const Book = (props: Props) => {
   return (
     <div className="book">
       <img className="bookImage" src={book.imageUrl} alt={book.title} />
-      <p>{book.title}</p>
-      <p><i>{book.author}</i></p>
+      <p>{truncate(book.title, 40)}</p>
     </div>
   );
 };
