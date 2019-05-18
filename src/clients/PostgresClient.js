@@ -4,6 +4,8 @@ import { Pool, types } from 'pg';
 import _ from 'lodash';
 import nullthrows from '../flib/nullthrows';
 
+import type {Book} from '../types';
+
 type Constraint = {
   key: string,
   operator: '=' | '!=' | '<' | '>' | '<=' | '>=' | 'IN' | 'IS' | 'IS NOT',
@@ -182,4 +184,8 @@ export default class PostgresClient {
       }
       return rows[0];
     }).catch(error => Promise.reject(new Error(`PostgresDataStore deleteOne error: ${error}`)))
+
+  getBooks: () => Promise<Array<Book>> = () => {
+    return this.select('books', []);
+  }
 }

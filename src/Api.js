@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import PostgresClient from './clients/PostgresClient';
+import BookRouter from './routers/BookRouter';
 
 export default class Api {
   express: any
@@ -30,5 +31,16 @@ export default class Api {
   initRoutes = () => {
     // This avoids 304 responses which clients will sometimes otherwise receive.
     this.express.disable('etag');
+
+    const bookRouter = new BookRouter(this.postgresClient);
+    this.express.use(bookRouter.path, bookRouter.router)
+
+    this.express.use((error: any, req: any, res: any, next: any) => {
+      console.log(error)
+      return res.status(500).json({
+        success: false,
+        errorMessage: 'Server error: ' + error,
+      })
+    })
   }
 }

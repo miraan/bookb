@@ -1,53 +1,54 @@
 // @flow
 
 import * as React from 'react';
+import Api from '../../Api';
+
+import type {Book} from '../../types';
 
 type Props = {};
 
 type State = {
-  list: Array<string>
+  books: Array<Book>
 };
 
 class Catalog extends React.Component<Props, State> {
-  // Initialize the state
   constructor(props: Props) {
     super(props);
     this.state = {
-      list: [],
+      books: [],
     };
   }
 
-  // Fetch the list on first mount
   componentDidMount() {
-    this.getList();
-  }
-
-  // Retrieves the list of items from the Express app
-  getList = () => {
-    fetch('/api/getList')
-      .then(res => res.json())
-      .then(list => this.setState({ list }));
+    Api.getBooks().then(response => {
+      if (response.success) {
+        this.setState({books: response.content.books});
+      }
+    })
+    .catch(error => {
+      console.log('Api.getBooks error: ' + error);
+    })
   }
 
   render() {
-    const { list } = this.state;
+    const { books } = this.state;
 
     return (
       <div className="App">
         <h1>Catalog</h1>
         {/* Check to see if any items are found */}
-        {list.length ? (
+        {books.length ? (
           <div>
             {/* Render the list of items */}
-            {list.map(item => (
+            {books.map(book => (
               <div>
-                {item}
+                {book.title}
               </div>
             ))}
           </div>
         ) : (
           <div>
-            <h2>No List Items Found</h2>
+            <h2>No Books Found</h2>
           </div>
         )
       }
