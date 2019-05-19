@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import LocalStorage from '../../LocalStorage';
 import {Redirect} from 'react-router-dom';
 import Header from '../components/Header';
 
@@ -9,7 +8,7 @@ type Props = {};
 
 class Order extends React.Component<Props> {
   render = () => {
-    if (!LocalStorage.isLoggedIn()) {
+    if (true) {
       return (
         <Redirect to="./signup" />
       );

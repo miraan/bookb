@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import PostgresClient from './clients/PostgresClient';
 import BookRouter from './routers/BookRouter';
+import UserRouter from './routers/UserRouter';
 
 export default class Api {
   express: any
@@ -53,6 +54,9 @@ export default class Api {
 
     const bookRouter = new BookRouter(this.postgresClient);
     this.express.use(bookRouter.path, bookRouter.router)
+
+    const userRouter = new UserRouter(this.postgresClient);
+    this.express.use(userRouter.path, userRouter.router)
 
     this.express.use((error: any, req: any, res: any, next: any) => {
       console.log(error)

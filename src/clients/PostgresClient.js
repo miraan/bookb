@@ -4,7 +4,7 @@ import { Pool, types } from 'pg';
 import _ from 'lodash';
 import nullthrows from '../flib/nullthrows';
 
-import type {Book} from '../types';
+import type {Book, AddEmailPayload, User} from '../types';
 
 type Constraint = {
   key: string,
@@ -187,5 +187,13 @@ export default class PostgresClient {
 
   getBooks: () => Promise<Array<Book>> = () => {
     return this.select('books', []);
+  }
+
+  getUserByEmail: string => Promise<?User> = (email: string) => {
+    return this.selectOne('users', [ { key: 'email', operator: '=', value: email } ])
+  }
+
+  addEmail: AddEmailPayload => Promise<User> = (payload: AddEmailPayload) => {
+    return this.insert('users', payload, true /*ignoreConflict*/)
   }
 }

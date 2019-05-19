@@ -2,7 +2,7 @@
 
 // import LocalStorage from './LocalStorage';
 
-import type { HttpMethod, GetBooksResponse } from './ApiTypes';
+import type { HttpMethod, GetBooksResponse, AddEmailPayload, AddEmailResponse } from './ApiTypes';
 
 export default class Api {
   static requestHeaders() {
@@ -71,6 +71,11 @@ export default class Api {
   }
 
   static getBooks(): Promise<GetBooksResponse> {
-    return this.getRequest('books');
+    return this.getRequest('book');
+  }
+
+  static addEmail(email: string): Promise<AddEmailResponse> {
+    const payload: AddEmailPayload = {email};
+    return this.putRequest('user', payload);
   }
 }

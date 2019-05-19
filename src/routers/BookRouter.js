@@ -12,7 +12,7 @@ export default class BookRouter {
 
   constructor(
     postgresClient: PostgresClient,
-    path: string = '/api/books',
+    path: string = '/api/book',
   ) {
     this.router = Router();
     this.path = path;

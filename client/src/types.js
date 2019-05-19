@@ -8,3 +8,24 @@ export type Book = {
   genre: string,
   imageUrl: string,
 }
+
+export type Plan = 1 | 2 | 3
+
+export type User = {
+  id: number,
+  email: string,
+  password?: ?string,
+  firstName?: ?string,
+  lastName?: ?string,
+  addressLine1?: ?string,
+  addressLine2?: ?string,
+  city?: ?string,
+  postCode?: ?string,
+  country?: ?string,
+  mobileNumber?: ?string,
+  stripeCustomerId?: ?string,
+  stripeCardBrand?: ?string,
+  stripeCardLastFourDigits?: ?string,
+  plan?: ?Plan,
+  createdTime: string,
+}
