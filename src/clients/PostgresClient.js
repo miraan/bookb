@@ -4,7 +4,7 @@ import { Pool, types } from 'pg';
 import _ from 'lodash';
 import nullthrows from '../flib/nullthrows';
 
-import type {Book, AddEmailPayload, User} from '../types';
+import type {Book, AddEmailPayload, User, CreateAccountPayload} from '../types';
 
 type Constraint = {
   key: string,
@@ -195,5 +195,13 @@ export default class PostgresClient {
 
   addEmail: AddEmailPayload => Promise<User> = (payload: AddEmailPayload) => {
     return this.insert('users', payload, true /*ignoreConflict*/)
+  }
+
+  updateUser: (number, CreateAccountPayload) => Promise<User> = (userId: number, payload: CreateAccountPayload) => {
+    return this.updateOne('users', payload, [ { key: 'id', operator: '=', value: userId } ])
+  }
+
+  createUser: CreateAccountPayload => Promise<User> = (payload: CreateAccountPayload) => {
+    return this.insert('users', payload)
   }
 }

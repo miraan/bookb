@@ -228,12 +228,12 @@ button {
 }
 
 .signupFormRow {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .signupFormInput {
   border: 1px solid #000;
-  height: 20px;
+  height: 10px;
   width: 200px;
   padding: 5px;
 }

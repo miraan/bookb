@@ -28,3 +28,30 @@ export type AddEmailSuccess = {
   }
 }
 export type AddEmailResponse = AddEmailSuccess | Failure
+
+export type CreateAccountPayload = {
+  email: string,
+  addressLine1: string,
+  addressLine2: string,
+  city: string,
+  postCode: string,
+  country: string,
+  mobileNumber: string,
+  password: string,
+}
+
+export type CreateAccountSuccess = {
+  success: true,
+  content: {
+    user: User,
+    token: string,
+  }
+}
+export type CreateAccountResponse = CreateAccountSuccess | Failure
+
+export type LogInPayload = {
+  email: string,
+  password: string,
+}
+
+export LogInResponse = CreateAccountResponse

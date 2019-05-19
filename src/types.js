@@ -33,3 +33,14 @@ export type User = {
 export type AddEmailPayload = {
   email: string,
 }
+
+export type CreateAccountPayload = {
+  email: string,
+  addressLine1: string,
+  addressLine2: string,
+  city: string,
+  postCode: string,
+  country: string,
+  mobileNumber: string,
+  password: string,
+}
