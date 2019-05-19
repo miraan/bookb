@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import BookHScroll from './BookHScroll';
 
 import type { Book as BookType } from '../../types';
@@ -21,9 +22,11 @@ const Cart = (props: Props) => {
     <div className="cart">
       <div className="cartHeader">
         Reading Cart
-        <button className="addDeliveryDetailsButton" type="submit" variant="raised" onClick={() => {}}>
-          Add Delivery Details &gt;&gt;
-        </button>
+        <Link to="./order">
+          <button className="addDeliveryDetailsButton" type="submit" variant="raised" onClick={() => {}}>
+            Add Delivery Details &gt;&gt;
+          </button>
+        </Link>
       </div>
       <BookHScroll books={books} onBookClick={onBookClick} smallBooks />
     </div>
