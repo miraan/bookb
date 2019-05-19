@@ -2,29 +2,39 @@
 
 import * as React from 'react';
 import Api from '../../Api';
-import Header from '../components/Header'
-import BookHScroll from '../components/BookHScroll'
+import LocalStorage from '../../LocalStorage';
+import Header from '../components/Header';
+import BookHScroll from '../components/BookHScroll';
+import BookDetailsPopup from '../components/BookDetailsPopup';
+import Cart from '../components/Cart';
 
 import type {Book as BookType} from '../../types';
 
 type Props = {};
 
 type State = {
-  books: Array<BookType>
+  books: Array<BookType>,
+  selectedBook: ?BookType,
+  cart: { number: BookType },
 };
 
 class Catalog extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    // LocalStorage.deleteLocalStorage();
     this.state = {
-      books: [],
+      books: LocalStorage.getBooks(),
+      selectedBook: null,
+      cart: LocalStorage.getCart(),
     };
   }
 
   componentDidMount() {
     Api.getBooks().then(response => {
       if (response.success) {
-        this.setState({books: response.content.books});
+        const books = response.content.books;
+        this.setState({books: books});
+        LocalStorage.saveBooks(books);
       }
     })
     .catch(error => {
@@ -33,7 +43,7 @@ class Catalog extends React.Component<Props, State> {
   }
 
   render() {
-    const { books } = this.state;
+    const { books, selectedBook, cart } = this.state;
     const genreToBooks = {};
     books.forEach(book => {
       if (!genreToBooks[book.genre]) {
@@ -51,7 +61,7 @@ class Catalog extends React.Component<Props, State> {
               <div className="genreHeading">
                 {genre}
               </div>
-              <BookHScroll books={genreToBooks[genre]} />
+              <BookHScroll books={genreToBooks[genre]} onBookClick={this.onBookClick} />
             </div>
           ))
         ) : (
@@ -59,9 +69,39 @@ class Catalog extends React.Component<Props, State> {
             <h2>Loading Catalog...</h2>
           </div>
         )
-      }
+        }
+        <BookDetailsPopup
+          book={selectedBook}
+          onCloseButtonClick={() => this.setState({ selectedBook: null})}
+          onReadButtonClick={this.onReadButtonClick} />
+        <Cart cart={cart} onBookClick={this.onBookClick} />
+        <div className="catalogCartFiller" />
       </div>
     );
+  }
+
+  onBookClick = (book: BookType) => {
+    console.log('Clicked book: ' + book.id)
+    this.setState({ selectedBook: book });
+  }
+
+  onReadButtonClick = (book: BookType) => {
+    console.log('Book cart: ' + book.id);
+    const {cart} = this.state;
+
+    // If it's in the cart, remove it, else add it.
+    if (!!cart[book.id]) {
+      delete cart[book.id];
+    } else {
+      if (Object.keys(cart).length >= 8) {
+        alert('You can order a maximum of 8 books at a time. Please remove something else from your cart before adding this book.');
+        return
+      }
+      cart[book.id] = book;
+    }
+
+    this.setState({ selectedBook: null, cart: cart });
+    LocalStorage.saveCart(cart);
   }
 }
 

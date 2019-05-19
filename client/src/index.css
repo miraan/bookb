@@ -96,6 +96,8 @@ button {
   display: flex;
   flex-direction: column;
   margin-left: 15px;
+  cursor: pointer;
+  align-items: center;
 }
 
 .book > p {
@@ -105,6 +107,26 @@ button {
 .bookImage {
   width: 104px;
   height: 160px;
+  object-fit: cover;
+}
+
+.bookSmall {
+  width: 65px;
+  height: 117px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.bookSmall > p {
+  font-size: 8px;
+}
+
+.bookImageSmall {
+  width: 52px;
+  height: 80px;
   object-fit: cover;
 }
 
@@ -119,4 +141,84 @@ button {
   margin-bottom: 10px;
   font-weight: bold;
   padding-left: 15px;
+}
+
+.bookDetailsPopup {
+  background-color: #fff;
+  width: 70vw;
+  height: 70vh;
+  position: fixed;
+  top: 15vh;
+  left: 15vw;
+  border: 1px solid #000;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  z-index: 1000;
+}
+
+.bookDetailsPopupImage {
+  width: 130px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.bookDetailsPopupHeader {
+  width: 100%;
+  padding-right: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.bookDetailsPopupCloseIcon {
+  font-size: 25px;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.bookDetailsPopupText {
+  margin: 15px 15px 0px 15px;
+}
+
+.readButton {
+  margin-top: 30px;
+  width: 175px;
+}
+
+.cart {
+  background: #fff;
+  width: 100vw;
+  height: 160px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 13px;
+}
+
+.catalogCartFiller {
+  width: 100vw;
+  min-height: 160px;
+}
+
+.cartHeader {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.addDeliveryDetailsButton {
+  font-size: 12px;
+  background-color: #ffcc2f;
+  border-color: #000;
+  border-radius: 5px;
+  padding: 2px 10px 2px 10px;
 }

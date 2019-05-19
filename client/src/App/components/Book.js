@@ -6,15 +6,17 @@ import truncate from '../../flib/truncate';
 import type { Book as BookType } from '../../types';
 
 type Props = {
-  book: BookType
+  book: BookType,
+  onClick: BookType => void,
+  small?: boolean,
 }
 
 const Book = (props: Props) => {
-  const { book } = props;
+  const { book, onClick, small } = props;
   return (
-    <div className="book">
-      <img className="bookImage" src={book.imageUrl} alt={book.title} />
-      <p>{truncate(book.title, 40)}</p>
+    <div className={small ? "bookSmall" : "book"} onClick={() => onClick(book)}>
+      <img className={small ? "bookImageSmall" : "bookImage"} src={book.imageUrl} alt={book.title} />
+      <p>{truncate(book.title, small ? 20 : 40)}</p>
     </div>
   );
 };

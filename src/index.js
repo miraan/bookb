@@ -34,12 +34,12 @@ if (process.env.DEV_LOCAL) {
     const httpsKeyFilePath = '/etc/letsencrypt/live/sunrisephotoapp.com/privkey.pem';
     const httpsCertificateFilePath = '/etc/letsencrypt/live/sunrisephotoapp.com/fullchain.pem';
 
-    const httpsServer: Server = https.createServer({
+    const httpsServer = https.createServer({
       key: fs.readFileSync(httpsKeyFilePath).toString(),
       cert: fs.readFileSync(httpsCertificateFilePath).toString(),
     }, api.express).listen(httpsPort)
 
-    const httpServer: Server = http.createServer((req: $Request, res: $Response) => {
+    const httpServer = http.createServer((req: $Request, res: $Response) => {
       res.writeHead(307, { 'Location': 'https://' + req.headers['host'] + req.url })
       res.end()
     }).listen(httpPort)
