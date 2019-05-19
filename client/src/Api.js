@@ -2,7 +2,7 @@
 
 // import LocalStorage from './LocalStorage';
 
-import type { HttpMethod, GetBooksResponse } from './types';
+import type { HttpMethod, GetBooksResponse } from './ApiTypes';
 
 export default class Api {
   static requestHeaders() {
