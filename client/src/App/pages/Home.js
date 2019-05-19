@@ -9,7 +9,7 @@ const Home = () => (
     <Header showMenuIcon={false} center showSearchBar={false} />
     <h2>Borrow Unlimited Books</h2>
     <h3>Same Day Delivery and Return</h3>
-    <h3><i>How Our Subscription Works</i></h3>
+    <p>How Our Subscription Works:</p>
     <div className="howItWorks">
       <ul>
         <li>Explore Our Catalog</li>
