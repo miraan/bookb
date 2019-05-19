@@ -222,3 +222,18 @@ button {
   border-radius: 5px;
   padding: 2px 10px 2px 10px;
 }
+
+.signupFormRow {
+  margin-bottom: 15px;
+}
+
+.signupFormInput {
+  border: 1px solid #000;
+  height: 20px;
+  width: 200px;
+  padding: 5px;
+}
+
+.signupFormButton {
+  width: 200px;
+}
