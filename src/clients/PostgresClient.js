@@ -186,6 +186,6 @@ export default class PostgresClient {
     }).catch(error => Promise.reject(new Error(`PostgresDataStore deleteOne error: ${error}`)))
 
   getBooks: () => Promise<Array<Book>> = () => {
-    return this.select('books', []);
+    return this.select('public.books', []);
   }
 }
