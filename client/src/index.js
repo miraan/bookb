@@ -2,14 +2,15 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from "react-router-dom";
+import history from "./history";
 import nullthrows from './flib/nullthrows';
 
 import './index.css';
 import App from './App/App';
 
 render((
-  <BrowserRouter>
+  <Router history={history}>
     <App />
-  </BrowserRouter>
+  </Router>
 ), nullthrows(document.getElementById('root')));

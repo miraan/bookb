@@ -1,6 +1,6 @@
 // @flow
 
-// import LocalStorage from './LocalStorage';
+import LocalStorage from './LocalStorage';
 
 import type { HttpMethod, GetBooksResponse, AddEmailPayload, AddEmailResponse,
   CreateAccountPayload, CreateAccountResponse, LogInPayload, LogInResponse,
@@ -8,9 +8,9 @@ import type { HttpMethod, GetBooksResponse, AddEmailPayload, AddEmailResponse,
 
 export default class Api {
   static requestHeaders() {
-    // const token = LocalStorage.getLoginToken();
+    const token = LocalStorage.getLoginToken();
     return {
-      // Authorization: `Bearer ${token || ''}`,
+      Authorization: `Bearer ${token || ''}`,
       Accept: 'application/json',
       'Content-Type': 'application/json',
       apiVersion: 'v1',

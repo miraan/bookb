@@ -184,6 +184,7 @@ class Signup extends React.Component<Props, State> {
         return;
       }
       LocalStorage.saveUser(response.content.user);
+      LocalStorage.saveLoginToken(response.content.token);
       this.forceUpdate();
     });
   }
@@ -261,6 +262,7 @@ class Signup extends React.Component<Props, State> {
       }
       const { user } = response.content;
       LocalStorage.saveUser(user);
+      LocalStorage.saveLoginToken(response.content.token);
       this.forceUpdate();
     })
       .catch((error) => {
