@@ -270,3 +270,32 @@ button {
   padding: 10px;
   font-weight: bold;
 }
+
+.addPaymentMethodButton {
+  margin-top: 25px;
+}
+
+.checkoutForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardElement {
+  width: 275px;
+  margin-top: 10px;
+}
+
+.deliveryList {
+  text-align: left;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.deliveryItem {
+  margin: 0px 20px 0px 20px;
+  text-align: left;
+}
+
+.confirmDeliveryButton {
+  margin-top: 30px;
+}

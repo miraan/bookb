@@ -64,3 +64,12 @@ export type UpdateUserPayload = {
 }
 
 export type UpdateUserResponse = AddEmailResponse
+
+export type SubscribePayload = {
+  planId: number,
+  stripeToken: string,
+  stripeCardBrand: string,
+  stripeCardLastFourDigits: string,
+}
+
+export type SubscribeResponse = AddEmailResponse

@@ -7,9 +7,11 @@ import path from 'path';
 import fs from 'fs';
 import Api from './Api';
 import PostgresClient from './clients/PostgresClient';
+import StripeClient from './clients/StripeClient';
 
 const api: Api = new Api(
-  new PostgresClient()
+  new PostgresClient(),
+  new StripeClient(),
 );
 
 // Serve the static files from the React app

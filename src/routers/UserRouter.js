@@ -3,6 +3,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import PostgresClient from '../clients/PostgresClient';
+import StripeClient from '../clients/StripeClient';
 import {generateUserAuthenticationToken} from '../flib/encryption';
 import {requireUserAuthentication} from '../flib/middleware';
 
@@ -14,14 +15,17 @@ export default class UserRouter {
   router: Router
 
   postgresClient: PostgresClient
+  stripeClient: StripeClient
 
   constructor(
     postgresClient: PostgresClient,
+    stripeClient: StripeClient,
     path: string = '/api/user',
   ) {
     this.router = Router();
     this.path = path;
     this.postgresClient = postgresClient;
+    this.stripeClient = stripeClient;
     this.init();
   }
 
@@ -30,6 +34,7 @@ export default class UserRouter {
     this.router.post('/createAccount', this.createAccount);
     this.router.post('/logIn', this.logIn);
     this.router.put('/update', requireUserAuthentication, this.updateUser);
+    this.router.post('/subscribe', requireUserAuthentication, this.subscribe);
   }
 
   addEmail = (req: any, res: any, next: any) => {
@@ -158,6 +163,40 @@ export default class UserRouter {
         return;
       }
       next(new Error(`UserRouter.updateUser error: ${error}`));
+    });
+  }
+
+  subscribe = (req: any, res: any, next: any) => {
+    const user: User = req.user;
+    if (!user) {
+      throw new Error('UserRouter.subscribe error: null user');
+    }
+    const { planId, stripeToken, stripeCardBrand, stripeCardLastFourDigits } = req.body;
+    if (!planId || !stripeToken) {
+      throw new Error('UserRouter.subscribe error: invalid payload');
+    }
+
+    this.stripeClient.createCustomer(user, stripeToken).then(stripeCustomerId => {
+      return this.postgresClient.updateUser(user.id, {stripeCustomerId, stripeCardBrand, stripeCardLastFourDigits})
+    })
+    .then(user => {
+      return this.stripeClient.createSubscription(user.stripeCustomerId, 'plan_' + planId);
+    })
+    .then(stripeSubscription => {
+      const stripeSubscriptionId = stripeSubscription.id;
+      return this.postgresClient.updateUser(user.id, {stripeSubscriptionId});
+    })
+    .then(user => {
+      res.status(200).json({
+        success: true,
+        content: { user },
+      });
+    })
+    .catch(error => {
+      if (!error) {
+        return;
+      }
+      next(new Error(`UserRouter.subscribe error: ${error}`));
     });
   }
 }

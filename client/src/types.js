@@ -22,6 +22,7 @@ export type User = {
   country?: ?string,
   mobileNumber?: ?string,
   stripeCustomerId?: ?string,
+  stripeSubscriptionId?: ?string,
   stripeCardBrand?: ?string,
   stripeCardLastFourDigits?: ?string,
   planId?: ?number,

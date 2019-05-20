@@ -21,7 +21,8 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
-    "pg": "^7.11.0"
+    "pg": "^7.11.0",
+    "stripe": "^7.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

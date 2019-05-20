@@ -20,7 +20,7 @@ const Home = () => (
     </div>
     <Link to="./catalog">
       <button type="submit" variant="raised">
-            Continue To Catalog
+        Continue To Catalog
       </button>
     </Link>
   </div>

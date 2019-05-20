@@ -4,7 +4,7 @@ import LocalStorage from './LocalStorage';
 
 import type { HttpMethod, GetBooksResponse, AddEmailPayload, AddEmailResponse,
   CreateAccountPayload, CreateAccountResponse, LogInPayload, LogInResponse,
-  UpdateUserPayload, UpdateUserResponse } from './ApiTypes';
+  UpdateUserPayload, UpdateUserResponse, SubscribePayload, SubscribeResponse } from './ApiTypes';
 
 export default class Api {
   static requestHeaders() {
@@ -92,5 +92,9 @@ export default class Api {
 
   static updateUser(payload: UpdateUserPayload): Promise<UpdateUserResponse> {
     return this.putRequest('user/update', payload);
+  }
+
+  static subscribe(payload: SubscribePayload): Promise<SubscribeResponse> {
+    return this.postRequest('user/subscribe', payload);
   }
 }

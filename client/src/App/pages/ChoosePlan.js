@@ -39,7 +39,7 @@ export default class ChoosePlan extends React.Component<Props> {
       console.log('Updated plan successfully.');
       const user = response.content.user;
       LocalStorage.saveUser(user);
-      nav('./addPaymentMethod');
+      nav('./paymentMethod');
     })
     .catch(error => {
         alert('An error occurred, please try again. Error: ' + error);

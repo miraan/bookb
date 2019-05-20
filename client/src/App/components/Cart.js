@@ -22,7 +22,7 @@ const Cart = (props: Props) => {
     <div className="cart">
       <div className="cartHeader">
         Reading Cart
-        <Link to="./order">
+        <Link to="./delivery">
           <button className="addDeliveryDetailsButton" type="submit" variant="raised" onClick={() => {}}>
             Add Delivery Details &gt;&gt;
           </button>
