@@ -3,7 +3,8 @@
 // import LocalStorage from './LocalStorage';
 
 import type { HttpMethod, GetBooksResponse, AddEmailPayload, AddEmailResponse,
-  CreateAccountPayload, CreateAccountResponse, LogInPayload, LogInResponse } from './ApiTypes';
+  CreateAccountPayload, CreateAccountResponse, LogInPayload, LogInResponse,
+  UpdateUserPayload, UpdateUserResponse } from './ApiTypes';
 
 export default class Api {
   static requestHeaders() {
@@ -86,6 +87,10 @@ export default class Api {
 
   static logIn(email: string, password: string): Promise<LogInResponse> {
     const payload: LogInPayload = {email, password};
-    return this.postRequest('user/logIn', payload)
+    return this.postRequest('user/logIn', payload);
+  }
+
+  static updateUser(payload: UpdateUserPayload): Promise<UpdateUserResponse> {
+    return this.putRequest('user/update', payload);
   }
 }

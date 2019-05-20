@@ -15,9 +15,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
     "express": "^4.17.0",
     "lodash": "^4.17.11",
     "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
     "pg": "^7.11.0"
   },
   "devDependencies": {

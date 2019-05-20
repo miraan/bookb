@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import PlanOption from '../components/PlanOption';
 import {plans} from '../../types';
 import LocalStorage from '../../LocalStorage';
+import Api from '../../Api';
 
 import type {Plan as PlanType} from '../../types';
 
@@ -30,5 +31,18 @@ export default class ChoosePlan extends React.Component<Props> {
       return;
     }
     console.log('chose plan' + plan.id);
+    Api.updateUser({planId: plan.id}).then(response => {
+      if (!response.success) {
+        alert('An error occurred, please try again. Error: ' + response.errorMessage);
+        return;
+      }
+      console.log('Updated plan successfully.');
+      const user = response.content.user;
+      LocalStorage.saveUser(user);
+      this.forceUpdate();
+    })
+    .catch(error => {
+        alert('An error occurred, please try again. Error: ' + error);
+    });
   }
 }

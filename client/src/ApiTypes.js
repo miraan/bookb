@@ -54,4 +54,13 @@ export type LogInPayload = {
   password: string,
 }
 
-export LogInResponse = CreateAccountResponse
+export type LogInResponse = CreateAccountResponse
+
+export type UpdateUserPayload = {
+  ...$ObjMap<$Diff<User, {
+    id: number,
+    createdTime: string,
+  }>, ToOptionalType>,
+}
+
+export type UpdateUserResponse = AddEmailResponse

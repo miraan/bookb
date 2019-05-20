@@ -3,9 +3,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import passport from 'passport';
+import {Strategy} from 'passport-http-bearer';
 import PostgresClient from './clients/PostgresClient';
 import BookRouter from './routers/BookRouter';
 import UserRouter from './routers/UserRouter';
+import {getUserIdFromUserAuthenticationToken} from './flib/encryption';
+import {passportBearerAuthenticated} from './flib/middleware';
 
 export default class Api {
   express: any
@@ -18,15 +22,30 @@ export default class Api {
     this.express = express();
     this.postgresClient = postgresClient;
 
+    this.initPassport();
     this.initMiddleware();
     this.initRoutes();
   }
 
-  initMiddleware = () => {
-    this.express.use(morgan('dev', { stream: { write: msg => console.log(msg) } }));
-
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: false }));
+  initPassport = () => {
+    passport.use(new Strategy((token, cb) => {
+      const userId = getUserIdFromUserAuthenticationToken(token);
+      if (!userId) {
+        cb(null, false);
+      }
+      this.postgresClient.getUserById(userId).then(user => {
+        if (!user) {
+          cb(null, false);
+        }
+        return cb(null, user);
+      })
+      .catch(error => {
+        if (!error) {
+          return;
+        }
+        cb('User Authentication Error' + error, false);
+      })
+    }));
 
     if (process.env.DEV_LOCAL) {
         // This makes debugging the web apps locally easier.
@@ -46,6 +65,15 @@ export default class Api {
         next()
       });
     }
+  }
+
+  initMiddleware = () => {
+    this.express.use(morgan('dev', { stream: { write: msg => console.log(msg) } }));
+
+    this.express.use(bodyParser.json());
+    this.express.use(bodyParser.urlencoded({ extended: false }));
+
+    this.express.use(passportBearerAuthenticated);
   }
 
   initRoutes = () => {

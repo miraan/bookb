@@ -44,3 +44,10 @@ export type CreateAccountPayload = {
   mobileNumber: string,
   password: string,
 }
+
+export type UpdateUserPayload = {
+  ...$ObjMap<$Diff<User, {
+    id: number,
+    createdTime: string,
+  }>, ToOptionalType>,
+}

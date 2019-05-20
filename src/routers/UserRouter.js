@@ -1,9 +1,12 @@
 // @flow
 
 import { Router } from 'express';
+import passport from 'passport';
 import PostgresClient from '../clients/PostgresClient';
+import {generateUserAuthenticationToken} from '../flib/encryption';
+import {requireUserAuthentication} from '../flib/middleware';
 
-import type {CreateAccountPayload} from '../types';
+import type {CreateAccountPayload, User, UpdateUserPayload} from '../types';
 
 export default class UserRouter {
   path: string
@@ -26,6 +29,7 @@ export default class UserRouter {
     this.router.put('/addEmail', this.addEmail);
     this.router.post('/createAccount', this.createAccount);
     this.router.post('/logIn', this.logIn);
+    this.router.put('/update', requireUserAuthentication, this.updateUser);
   }
 
   addEmail = (req: any, res: any, next: any) => {
@@ -91,10 +95,12 @@ export default class UserRouter {
         : this.postgresClient.createUser(payload)
     })
     .then(user => {
+      const token = generateUserAuthenticationToken(user.id);
       res.status(200).json({
         success: true,
         content: {
           user,
+          token,
         },
       });
     })
@@ -118,10 +124,12 @@ export default class UserRouter {
       if (user.password !== password) {
         throw new Error('Wrong password.');
       }
+      const token = generateUserAuthenticationToken(user.id);
       res.status(200).json({
         success: true,
         content: {
           user,
+          token,
         }
       });
     })
@@ -130,6 +138,26 @@ export default class UserRouter {
         return;
       }
       next(new Error(`UserRouter.logIn error: ${error}`));
+    });
+  }
+
+  updateUser = (req: any, res: any, next: any) => {
+    const user: User = req.user;
+    if (!user) {
+      throw new Error('UserRouter.updateUser error: null user');
+    }
+    const payload: UpdateUserPayload = req.body;
+    this.postgresClient.updateUser(user.id, payload).then(user => {
+      res.status(200).json({
+        success: true,
+        content: { user },
+      });
+    })
+    .catch(error => {
+      if (!error) {
+        return;
+      }
+      next(new Error(`UserRouter.updateUser error: ${error}`));
     });
   }
 }
