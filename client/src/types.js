@@ -60,3 +60,11 @@ export const plans: Array<Plan> = [
     pricePerMonth: 1299,
   }
 ]
+
+export type BookOrder = {
+  id: number,
+  userId: number,
+  bookId: number,
+  createdTime: string,
+  status: 'requested' | 'canceled' | 'delivered' | 'returned',
+}

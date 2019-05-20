@@ -39,7 +39,7 @@ class CheckoutForm extends React.Component<Props> {
         return;
       }
       LocalStorage.saveUser(response.content.user);
-      nav('/order');
+      nav('/delivery');
     })
   }
 

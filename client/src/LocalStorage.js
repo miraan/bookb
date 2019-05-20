@@ -1,11 +1,12 @@
 // @flow
 
-import type { Book, User } from './types';
+import type { Book, User, BookOrder } from './types';
 
 const loginTokenKey: string = 'loginToken';
 const booksKey: string = 'books';
 const cartKey: string = 'cart';
 const userKey: string = 'user';
+const bookOrdersKey: string = 'bookOrders';
 
 export default class LocalStorage {
   static saveLoginToken(loginToken: string) {
@@ -68,10 +69,27 @@ export default class LocalStorage {
     sessionStorage.removeItem(userKey);
   }
 
+  static saveBookOrders(bookOrders: Array<BookOrder>) {
+    sessionStorage.setItem(bookOrdersKey, JSON.stringify(bookOrders));
+  }
+
+  static getBookOrders(): Array<BookOrder> {
+    const json = sessionStorage.getItem(bookOrdersKey);
+    if (!json) {
+      return [];
+    }
+    return JSON.parse(json);
+  }
+
+  static deleteBookOrders() {
+    sessionStorage.removeItem(bookOrdersKey);
+  }
+
   static deleteLocalStorage() {
     LocalStorage.deleteLoginToken();
     LocalStorage.deleteBooks();
     LocalStorage.deleteCart();
     LocalStorage.deleteUser();
+    LocalStorage.deleteBookOrders();
   }
 }

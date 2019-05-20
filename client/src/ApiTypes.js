@@ -1,6 +1,6 @@
 // @flow
 
-import type { Book, User } from './types';
+import type { Book, User, BookOrder } from './types';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -73,3 +73,16 @@ export type SubscribePayload = {
 }
 
 export type SubscribeResponse = AddEmailResponse
+
+export type CreateBookOrdersSuccess = {
+  success: true,
+  content: {
+    bookOrders: Array<BookOrder>,
+  }
+}
+
+export type CreateBookOrdersResponse = CreateBookOrdersSuccess | Failure
+
+export type GetBookOrdersResponse = CreateBookOrdersResponse
+
+export type CancelBookOrderResponse = GetBookOrdersResponse | Failure

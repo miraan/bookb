@@ -4,7 +4,8 @@ import LocalStorage from './LocalStorage';
 
 import type { HttpMethod, GetBooksResponse, AddEmailPayload, AddEmailResponse,
   CreateAccountPayload, CreateAccountResponse, LogInPayload, LogInResponse,
-  UpdateUserPayload, UpdateUserResponse, SubscribePayload, SubscribeResponse } from './ApiTypes';
+  UpdateUserPayload, UpdateUserResponse, SubscribePayload, SubscribeResponse,
+  CreateBookOrdersResponse, GetBookOrdersResponse } from './ApiTypes';
 
 export default class Api {
   static requestHeaders() {
@@ -96,5 +97,17 @@ export default class Api {
 
   static subscribe(payload: SubscribePayload): Promise<SubscribeResponse> {
     return this.postRequest('user/subscribe', payload);
+  }
+
+  static createBookOrders(bookIds: Array<number>): Promise<CreateBookOrdersResponse> {
+    return this.postRequest('user/bookOrders', {bookIds});
+  }
+
+  static getBookOrders(): Promise<GetBookOrdersResponse> {
+    return this.getRequest('user/bookOrders')
+  }
+
+  static cancelBookOrder(bookId: number): Promise<CancelBookOrderResponse> {
+    return this.getRequest(`user/cancelBookOrder/${bookId}`)
   }
 }

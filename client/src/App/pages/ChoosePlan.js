@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import PlanOption from '../components/PlanOption';
 import {plans} from '../../types';
@@ -14,6 +15,20 @@ type Props = {};
 
 export default class ChoosePlan extends React.Component<Props> {
   render = () => {
+    const user = LocalStorage.getUser();
+
+    if (!user || !user.password) {
+      return (
+        <Redirect to="./signup" />
+      );
+    }
+
+    if (user.planId) {
+      return (
+        <Redirect to="./paymentMethod" />
+      );
+    }
+
     return (
       <div className="App">
         <Header showMenuIcon showSearchBar={false} center={false} />

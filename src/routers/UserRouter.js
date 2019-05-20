@@ -6,8 +6,9 @@ import PostgresClient from '../clients/PostgresClient';
 import StripeClient from '../clients/StripeClient';
 import {generateUserAuthenticationToken} from '../flib/encryption';
 import {requireUserAuthentication} from '../flib/middleware';
+import {plans} from '../types';
 
-import type {CreateAccountPayload, User, UpdateUserPayload} from '../types';
+import type {CreateAccountPayload, User, UpdateUserPayload, Plan} from '../types';
 
 export default class UserRouter {
   path: string
@@ -35,6 +36,9 @@ export default class UserRouter {
     this.router.post('/logIn', this.logIn);
     this.router.put('/update', requireUserAuthentication, this.updateUser);
     this.router.post('/subscribe', requireUserAuthentication, this.subscribe);
+    this.router.post('/bookOrders', requireUserAuthentication, this.createBookOrders);
+    this.router.get('/bookOrders', requireUserAuthentication, this.getBookOrders);
+    this.router.get('/cancelBookOrder/:bookId', requireUserAuthentication, this.cancelBookOrder);
   }
 
   addEmail = (req: any, res: any, next: any) => {
@@ -197,6 +201,106 @@ export default class UserRouter {
         return;
       }
       next(new Error(`UserRouter.subscribe error: ${error}`));
+    });
+  }
+
+  createBookOrders = (req: any, res: any, next: any) => {
+    const user: User = req.user;
+    if (!user) {
+      throw new Error('UserRouter.createBookOrders error: null user');
+    }
+
+    const plan = plans.find(p => p.id === user.planId)
+    if (!plan) {
+      throw new Error('UserRouter.createBookOrders error: user has no plan.');
+    }
+
+    if (!user.stripeCustomerId || !user.stripeSubscriptionId) {
+      throw new Error('UserRouter.createBookOrders error: user has no payment method / active subscription.');
+    }
+
+    const bookIds = req.body.bookIds;
+    if (!bookIds) {
+      throw new Error('UserRouter.createBookOrders error: no bookIds.');
+    }
+
+    if (bookIds.length > plan.maxBooks) {
+      throw new Error(`UserRouter.createBookOrders error: user is only allowed ${plan.maxBooks} books, but ${bookIds.length} books were requested.`);
+    }
+
+    this.postgresClient.getBookOrders(user.id).then(bookOrders => {
+      const requested = bookOrders.filter(b => b.status === 'requested')
+      if (requested.length + bookIds.length > plan.maxBooks) {
+        throw new Error(`You will exceed the maximum number of books allowed under your plan if you request these books in addition to your already requested books. Please cancel some book requests first.`)
+      }
+      return Promise.all(
+        bookIds.map(
+          bookId => this.postgresClient.createBookOrder(user.id, bookId)
+        )
+      )
+    })
+    .then(results => {
+      return this.postgresClient.getBookOrders(user.id)
+    })
+    .then(bookOrders => {
+      res.status(200).json({
+        success: true,
+        content: { bookOrders },
+      });
+    })
+    .catch(error => {
+      if (!error) {
+        return;
+      }
+      next(new Error(`UserRouter.createBookOrders error: ${error}`));
+    });
+  }
+
+  getBookOrders = (req: any, res: any, next: any) => {
+    const user: User = req.user;
+    if (!user) {
+      throw new Error('UserRouter.getBookOrders error: null user');
+    }
+
+    this.postgresClient.getBookOrders(user.id).then(bookOrders => {
+      res.status(200).json({
+        success: true,
+        content: { bookOrders },
+      });
+    })
+    .catch(error => {
+      if (!error) {
+        return;
+      }
+      next(new Error(`UserRouter.getBookOrders error: ${error}`));
+    });
+  }
+
+  cancelBookOrder = (req: any, res: any, next: any) => {
+    const user: User = req.user;
+    if (!user) {
+      throw new Error('UserRouter.cancelBookOrder error: null user');
+    }
+
+    const bookId = req.params.bookId;
+    if (!bookId) {
+      throw new Error('UserRouter.cancelBookOrder error: no bookId given');
+    }
+
+    this.postgresClient.cancelBookOrder(user.id, bookId).then(bookOrder => {
+      return this.postgresClient.getBookOrders(user.id)
+    })
+    .then(bookOrders => {
+      res.status(200).json({
+        success: true,
+        content: { bookOrders },
+      });
+    })
+    .catch(error => {
+      if (!error) {
+        return;
+      }
+      next(new Error(`UserRouter.cancelBookOrder error: ${error}`));
     });
   }
 }

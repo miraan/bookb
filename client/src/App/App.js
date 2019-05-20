@@ -9,6 +9,8 @@ import Delivery from './pages/Delivery';
 import Signup from './pages/Signup';
 import ChoosePlan from './pages/ChoosePlan';
 import PaymentMethod from './pages/PaymentMethod';
+import DeliveryConfirmed from './pages/DeliveryConfirmed';
+import MyBooks from './pages/MyBooks';
 
 const App = () => (
   <Switch>
@@ -20,6 +22,8 @@ const App = () => (
         <Route path="/signup" component={Signup} />
         <Route path="/choosePlan" component={ChoosePlan} />
         <Route path="/paymentMethod" component={PaymentMethod} />
+        <Route path="/deliveryConfirmed" component={DeliveryConfirmed} />
+        <Route path="/myBooks" component={MyBooks} />
       </Switch>
     </div>
   </Switch>

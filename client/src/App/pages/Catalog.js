@@ -42,7 +42,7 @@ class Catalog extends React.Component<Props, State> {
     })
   }
 
-  render() {
+  render = () => {
     const { books, selectedBook, cart } = this.state;
     const genreToBooks = {};
     books.forEach(book => {

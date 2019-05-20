@@ -9,8 +9,6 @@ export type Book = {
   imageUrl: string,
 }
 
-export type Plan = 1 | 2 | 3
-
 export type User = {
   id: number,
   email: string,
@@ -52,3 +50,43 @@ export type UpdateUserPayload = {
     createdTime: string,
   }>, ToOptionalType>,
 }
+
+export type BookOrder = {
+  id: number,
+  userId: number,
+  bookId: number,
+  createdTime: string,
+  status: 'requested' | 'canceled' | 'delivered' | 'returned',
+}
+
+export type Plan = {
+  id: number,
+  name: string,
+  maxBooks: number,
+  deliveryDeal: string,
+  pricePerMonth: number,
+}
+
+export const plans: Array<Plan> = [
+  {
+    id: 1,
+    name: 'Basic Plan',
+    maxBooks: 2,
+    deliveryDeal: 'Next Day Delivery',
+    pricePerMonth: 799,
+  },
+  {
+    id: 2,
+    name: 'Standard Plan',
+    maxBooks: 4,
+    deliveryDeal: 'Same Day Delivery (for orders placed before 6pm)',
+    pricePerMonth: 999,
+  },
+  {
+    id: 3,
+    name: 'Family Plan',
+    maxBooks: 8,
+    deliveryDeal: 'Same Day Delivery (for orders placed before 6pm)',
+    pricePerMonth: 1299,
+  }
+]
