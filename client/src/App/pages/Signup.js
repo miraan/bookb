@@ -27,7 +27,7 @@ type State = {
 class Signup extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    LocalStorage.deleteLocalStorage();
+    // LocalStorage.deleteLocalStorage();
     const user = LocalStorage.getUser();
     this.state = {
       email: user && user.email ? user.email : '',
@@ -49,7 +49,7 @@ class Signup extends React.Component<Props, State> {
 
     if (user && user.password) {
       return (
-        <Redirect to="./plan" />
+        <Redirect to="./choosePlan" />
       );
     }
 
@@ -61,7 +61,7 @@ class Signup extends React.Component<Props, State> {
     return (
       <div className="App">
         <Header showMenuIcon showSearchBar={false} center={false} />
-        <h3 className="signupFormHeading">Create an Account</h3>
+        <h3 className="noTopMargin">Create an Account</h3>
         <div className="signupFormRow">
           Email Address:
         </div>

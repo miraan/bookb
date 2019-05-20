@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import Order from './pages/Order';
 import Signup from './pages/Signup';
+import ChoosePlan from './pages/ChoosePlan';
 
 const App = () => (
   <Switch>
@@ -16,6 +17,7 @@ const App = () => (
         <Route path="/catalog" component={Catalog} />
         <Route path="/order" component={Order} />
         <Route path="/signup" component={Signup} />
+        <Route path="/choosePlan" component={ChoosePlan} />
       </Switch>
     </div>
   </Switch>

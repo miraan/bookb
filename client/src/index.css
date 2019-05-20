@@ -223,7 +223,7 @@ button {
   padding: 2px 10px 2px 10px;
 }
 
-.signupFormHeading {
+.noTopMargin {
   margin-top: 0px;
 }
 
@@ -242,4 +242,31 @@ button {
   width: 200px;
   margin-top: 10px;
   margin-bottom: 20px;
+}
+
+.planOption {
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 250px;
+  margin-bottom: 15px;
+}
+
+.planOptionTitle {
+  border-bottom: 1px solid #000;
+  font-weight: bold;
+}
+
+.planOptionRow {
+  padding: 5px;
+}
+
+.planOptionButton {
+  border-top: 1px solid #000;
+  background-color: #ffcc2f;
+  padding: 10px;
+  font-weight: bold;
 }

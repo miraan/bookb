@@ -26,7 +26,7 @@ export type User = {
   stripeCustomerId?: ?string,
   stripeCardBrand?: ?string,
   stripeCardLastFourDigits?: ?string,
-  plan?: ?Plan,
+  planId?: ?number,
   createdTime: string,
 }
 
