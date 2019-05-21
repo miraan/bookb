@@ -97,6 +97,7 @@ button {
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .book {
@@ -198,6 +199,7 @@ button {
 .bookDetailsPopupDescription {
   max-height: 30vh;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .readButton {
