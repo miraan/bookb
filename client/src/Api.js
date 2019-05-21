@@ -36,7 +36,7 @@ export default class Api {
       : null);
     const host = process.env.NODE_ENV === 'development'
       ? 'http://localhost:5000'
-      : `http://${window.location.host}`;
+      : `https://${window.location.host}`;
     const request = await new Request(
       `${host}/api/${path}`,
       {
