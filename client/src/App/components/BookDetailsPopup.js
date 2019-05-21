@@ -31,7 +31,7 @@ const BookDetailsPopup = (props: Props) => {
       </span>
       <span className="bookDetailsPopupText">{`Genre: ${book.genre}`}</span>
       {book.description
-        ? <span className="bookDetailsPopupText">{book.description}</span>
+        ? <span className="bookDetailsPopupText bookDetailsPopupDescription">{book.description}</span>
         : null }
       <button className="readButton" type="submit" variant="raised" onClick={() => onReadButtonClick(book)}>
         {isBookInCart ? 'Remove From Cart' : 'Read'}
