@@ -119,7 +119,7 @@ class Catalog extends React.Component<Props, State> {
   }
 
   onSearchBarTextChange = (searchBarText: string) => {
-    this.setState({ searchBarText: searchBarText.trim() });
+    this.setState({ searchBarText });
   }
 }
 
