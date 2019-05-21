@@ -252,6 +252,7 @@ button {
 
 .signupForm {
   width: 80%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -306,6 +307,7 @@ button {
   background-color: #1DB954;
   padding: 10px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .addPaymentMethodButton {
@@ -380,6 +382,7 @@ button {
 .menuItem {
   padding-left: 15px;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 a {

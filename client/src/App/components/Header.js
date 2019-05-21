@@ -71,7 +71,7 @@ class Header extends React.Component<Props, State> {
       return null;
     }
     const user = LocalStorage.getUser();
-    const showLogOut = user && user.stripeCustomerId && user.stripeSubscriptionId;
+    const showLogOut = user && user.password;
     return (
       <div className="menu">
         <div className="menuHeader">
