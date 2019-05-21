@@ -8,6 +8,7 @@
     "build_server": "rm -rf build; babel src/ -d build/; cp -r client/build/ build/client/",
     "start": "DEV_LOCAL=1 node build/index.js",
     "start_prod": "node build/index.js",
+    "forever_prod": "forever -a -l /logs/server.log start build/index.js",
     "flow": "flow"
   },
   "keywords": [],
