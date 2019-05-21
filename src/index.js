@@ -29,12 +29,12 @@ if (process.env.DEV_LOCAL) {
   server.on('error', (error: ErrnoError) => onError(error, port));
   server.on('listening', () => console.log(`HTTP Server Listening on Port ${port}`));
 } else {
-  const useHttps = false
+  const useHttps = true
   if (useHttps) {
     const httpPort = 80
     const httpsPort = 443
-    const httpsKeyFilePath = '/etc/letsencrypt/live/sunrisephotoapp.com/privkey.pem';
-    const httpsCertificateFilePath = '/etc/letsencrypt/live/sunrisephotoapp.com/fullchain.pem';
+    const httpsKeyFilePath = '/etc/letsencrypt/live/bookb.co/privkey.pem';
+    const httpsCertificateFilePath = '/etc/letsencrypt/live/bookb.co/fullchain.pem';
 
     const httpsServer = https.createServer({
       key: fs.readFileSync(httpsKeyFilePath).toString(),
