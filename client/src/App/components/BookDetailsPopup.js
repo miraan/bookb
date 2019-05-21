@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import LocalStorage from '../../LocalStorage';
+import Popup from './Popup';
 
 import type { Book as BookType } from '../../types';
 
@@ -18,12 +19,7 @@ const BookDetailsPopup = (props: Props) => {
   }
   const isBookInCart = !!LocalStorage.getCart()[book.id];
   return (
-    <div className="bookDetailsPopup">
-      <div className="bookDetailsPopupHeader">
-        <div className="bookDetailsPopupCloseIcon" onClick={onCloseButtonClick}>
-          &times;
-        </div>
-      </div>
+    <Popup onCloseButtonClick={onCloseButtonClick}>
       <img className="bookDetailsPopupImage" src={book.imageUrl} alt={book.title} />
       <span className="bookDetailsPopupText"><b>{book.title}</b></span>
       <span className="bookDetailsPopupText">
@@ -36,7 +32,7 @@ const BookDetailsPopup = (props: Props) => {
       <button className="readButton" type="submit" variant="raised" onClick={() => onReadButtonClick(book)}>
         {isBookInCart ? 'Remove From Cart' : 'Read'}
       </button>
-    </div>
+    </Popup>
   );
 };
 

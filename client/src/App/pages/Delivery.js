@@ -25,7 +25,7 @@ class Delivery extends React.Component<Props> {
     if (!Object.keys(cart).length) {
       console.log('Delivery page: redirecting to catalog as cart is empty.');
       return (
-        <Redirect to="./catalog" />
+        <Redirect to="./" />
       );
     }
     return (

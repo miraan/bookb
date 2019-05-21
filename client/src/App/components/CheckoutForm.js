@@ -12,6 +12,7 @@ type Props = {
 
 class CheckoutForm extends React.Component<Props> {
   onButtonPress = async () => {
+    // LocalStorage.deleteLocalStorage();
     const user = LocalStorage.getUser();
     if (!user) {
       return;
@@ -45,7 +46,12 @@ class CheckoutForm extends React.Component<Props> {
 
   render = () => (
     <div className="checkoutForm">
-      <CardElement className="cardElement" hidePostalCode={true} />
+      <div className="cardElementContainer">
+        <CardElement
+          className="cardElement"
+          hidePostalCode={true}
+          iconStyle='solid' />
+      </div>
       <button
         className="addPaymentMethodButton"
         type="submit"

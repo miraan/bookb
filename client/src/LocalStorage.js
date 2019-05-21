@@ -7,6 +7,7 @@ const booksKey: string = 'books';
 const cartKey: string = 'cart';
 const userKey: string = 'user';
 const bookOrdersKey: string = 'bookOrders';
+const seenTutorialKey: string = 'seenTutorial';
 
 export default class LocalStorage {
   static saveLoginToken(loginToken: string) {
@@ -85,11 +86,25 @@ export default class LocalStorage {
     sessionStorage.removeItem(bookOrdersKey);
   }
 
+  static saveSeenTutorial(seenTutorial: boolean) {
+    sessionStorage.setItem(seenTutorialKey, JSON.stringify(seenTutorial))
+  }
+
+  static getSeenTutorial(): boolean {
+    const json = sessionStorage.getItem(seenTutorialKey)
+    return !!json
+  }
+
+  static deleteSeenTutorial() {
+    sessionStorage.removeItem(seenTutorialKey)
+  }
+
   static deleteLocalStorage() {
     LocalStorage.deleteLoginToken();
     LocalStorage.deleteBooks();
     LocalStorage.deleteCart();
     LocalStorage.deleteUser();
     LocalStorage.deleteBookOrders();
+    LocalStorage.deleteSeenTutorial();
   }
 }

@@ -11,7 +11,7 @@ const DeliveryConfirmed = () => (
     <span className="deliveryConfirmedText">
       {'We\'ll be in touch to arrange a convenient delivery time. You can review your requested books at any time from the menu.'}
     </span>
-    <Link to="./catalog">
+    <Link to="./">
       <button type="submit" variant="raised">
         Back To Catalog
       </button>

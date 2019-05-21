@@ -81,13 +81,11 @@ class Header extends React.Component<Props, State> {
         </div>
         <div className="menuItem">
           <Link to="./">
-            How It Works
-          </Link>
-        </div>
-        <div className="menuItem">
-          <Link to="./catalog">
             Catalog
           </Link>
+        </div>
+        <div className="menuItem" onClick={this.onHowItWorksButtonPress}>
+            How It Works
         </div>
         {showLogOut
         ? <>
@@ -112,12 +110,22 @@ class Header extends React.Component<Props, State> {
               </Link>
             </div>
           </>}
+        <div className="menuItem">
+          <Link to="./contact">
+            Contact
+          </Link>
+        </div>
       </div>
     )
   }
 
   onLogOutButtonPress = () => {
     LocalStorage.deleteLocalStorage();
+    nav('/');
+  }
+
+  onHowItWorksButtonPress = () => {
+    LocalStorage.deleteSeenTutorial();
     nav('/');
   }
 }

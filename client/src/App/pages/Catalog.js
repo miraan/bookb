@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import BookHScroll from '../components/BookHScroll';
 import BookDetailsPopup from '../components/BookDetailsPopup';
 import Cart from '../components/Cart';
+import TutorialPopup from '../components/TutorialPopup';
 
 import type {Book as BookType} from '../../types';
 
@@ -85,8 +86,11 @@ class Catalog extends React.Component<Props, State> {
           book={selectedBook}
           onCloseButtonClick={() => this.setState({ selectedBook: null})}
           onReadButtonClick={this.onReadButtonClick} />
+        <TutorialPopup />
         <Cart cart={cart} onBookClick={this.onBookClick} />
-        <div className="catalogCartFiller" />
+        <div className="footer">
+          Copyright © 2019 BookB
+        </div>
       </div>
     );
   }
