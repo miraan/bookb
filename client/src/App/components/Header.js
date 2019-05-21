@@ -9,6 +9,8 @@ type Props = {
   showMenuIcon: boolean,
   showSearchBar: boolean,
   center: boolean,
+  searchBarText?: string,
+  onSearchBarTextChange?: string => void,
 }
 
 type State = {
@@ -20,11 +22,12 @@ class Header extends React.Component<Props, State> {
     super(props);
     this.state = {
       showMenu: false,
+      searchBarText: '',
     }
   }
 
   render = () => {
-    const { showMenuIcon, showSearchBar, center } = this.props;
+    const { showMenuIcon, showSearchBar, center, searchBarText, onSearchBarTextChange } = this.props;
     return (
       <div className="header" style={center ? { justifyContent: 'center' } : {}}>
         <div className="headerLeft">
@@ -43,7 +46,12 @@ class Header extends React.Component<Props, State> {
         {showSearchBar
           ? (
             <div className="searchBar">
-              <input className="searchInput" type="text" placeholder="Search" />
+              <input
+                className="searchInput"
+                type="text"
+                placeholder="Search"
+                value={searchBarText || ''} 
+                onChange={onSearchBarTextChange ? (e) => onSearchBarTextChange(e.target.value) : () => {}} />
             </div>
           )
           : null}

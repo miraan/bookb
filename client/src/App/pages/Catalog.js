@@ -16,6 +16,7 @@ type State = {
   books: Array<BookType>,
   selectedBook: ?BookType,
   cart: { number: BookType },
+  searchBarText: string,
 };
 
 class Catalog extends React.Component<Props, State> {
@@ -26,6 +27,7 @@ class Catalog extends React.Component<Props, State> {
       books: LocalStorage.getBooks(),
       selectedBook: null,
       cart: LocalStorage.getCart(),
+      searchBarText: '',
     };
   }
 
@@ -43,7 +45,14 @@ class Catalog extends React.Component<Props, State> {
   }
 
   render = () => {
-    const { books, selectedBook, cart } = this.state;
+    let { books } = this.state;
+    const { selectedBook, cart, searchBarText } = this.state;
+
+    const searchText = searchBarText.trim().toLowerCase();
+    if (searchText.length) {
+      books = books.filter(b => b.title.toLowerCase().includes(searchText) || b.author.toLowerCase().includes(searchText))
+    }
+
     const genreToBooks = {};
     books.forEach(book => {
       if (!genreToBooks[book.genre]) {
@@ -54,7 +63,12 @@ class Catalog extends React.Component<Props, State> {
 
     return (
       <div className="App">
-        <Header showMenuIcon={true} showSearchBar={true} center={false} />
+        <Header
+          showMenuIcon={true}
+          showSearchBar={true}
+          center={false}
+          searchBarText={searchBarText}
+          onSearchBarTextChange={this.onSearchBarTextChange} />
         {books.length ? (
           Object.keys(genreToBooks).map(genre => (
             <div key={genre} className="genre">
@@ -102,6 +116,10 @@ class Catalog extends React.Component<Props, State> {
 
     this.setState({ selectedBook: null, cart: cart });
     LocalStorage.saveCart(cart);
+  }
+
+  onSearchBarTextChange = (searchBarText: string) => {
+    this.setState({ searchBarText: searchBarText.trim() });
   }
 }
 
