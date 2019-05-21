@@ -62,112 +62,89 @@ class Signup extends React.Component<Props, State> {
       <div className="App">
         <Header showMenuIcon showSearchBar={false} center={false} />
         <h3 className="noTopMargin">Create an Account</h3>
-        <div className="signupFormRow">
-          Email Address:
-        </div>
-        <div className="signupFormRow">
-          <input type="email" className="signupFormInput" value={email} onChange={e => this.setState({ email: e.target.value })} />
-        </div>
-        {user && user.email
-          ? (
-            <>
-              <div className="signupFormRow">
-                Password:
-              </div>
-              <div className="signupFormRow">
-                <input type="password" className="signupFormInput" value={password} onChange={e => this.setState({ password: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                Confirm Password:
-              </div>
-              <div className="signupFormRow">
-                <input type="password" className="signupFormInput" value={confirmPassword} onChange={e => this.setState({ confirmPassword: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                Address Line 1:
-              </div>
-              <div className="signupFormRow">
-                <input type="text" className="signupFormInput" value={addressLine1} onChange={e => this.setState({ addressLine1: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                Address Line 2:
-              </div>
-              <div className="signupFormRow">
-                <input type="text" className="signupFormInput" value={addressLine2} onChange={e => this.setState({ addressLine2: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                City:
-              </div>
-              <div className="signupFormRow">
-                <input type="text" className="signupFormInput" value={city} onChange={e => this.setState({ city: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                Post Code / Zip Code:
-              </div>
-              <div className="signupFormRow">
-                <input type="text" className="signupFormInput" value={postCode} onChange={e => this.setState({ postCode: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                Country:
-              </div>
-              <div className="signupFormRow">
-                <input type="text" className="signupFormInput" value={country} onChange={e => this.setState({ country: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                Mobile Number:
-              </div>
-              <div className="signupFormRow">
-                <input type="text" className="signupFormInput" value={mobileNumber} onChange={e => this.setState({ mobileNumber: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
+        <div className="signupForm">
+          <div className="signupFormRow">
+            Email Address:
+            <input type="email" className="signupFormInput" value={email} onChange={e => this.setState({ email: e.target.value })} />
+          </div>
+          {user && user.email
+            ? (
+              <>
+                <div className="signupFormRow">
+                  Password:
+                  <input type="password" className="signupFormInput" value={password} onChange={e => this.setState({ password: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  Confirm Password:
+                  <input type="password" className="signupFormInput" value={confirmPassword} onChange={e => this.setState({ confirmPassword: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  Address Line 1:
+                  <input type="text" className="signupFormInput" value={addressLine1} onChange={e => this.setState({ addressLine1: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  Address Line 2:
+                  <input type="text" className="signupFormInput" value={addressLine2} onChange={e => this.setState({ addressLine2: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  City:
+                  <input type="text" className="signupFormInput" value={city} onChange={e => this.setState({ city: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  Post Code:
+                  <input type="text" className="signupFormInput" value={postCode} onChange={e => this.setState({ postCode: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  Country:
+                  <input type="text" className="signupFormInput" value={country} onChange={e => this.setState({ country: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  Mobile Number:
+                  <input type="text" className="signupFormInput" value={mobileNumber} onChange={e => this.setState({ mobileNumber: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  <button
+                    type="submit"
+                    variant="raised"
+                    className="signupFormButton"
+                    onClick={this.onCreateAccountButtonClick}
+                  >
+              Create Account
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="signupFormRow">
+                  <button
+                    type="submit"
+                    variant="raised"
+                    className="signupFormButton"
+                    onClick={this.onEmailSubmitButtonClick}
+                  >
+                    Next
+                  </button>
+                </div>
+                <h3>Log In</h3>
+                <div className="signupFormRow">
+                  Email Address:
+                  <input type="email" className="signupFormInput" value={loginEmail} onChange={e => this.setState({ loginEmail: e.target.value })} />
+                </div>
+                <div className="signupFormRow">
+                  Password:
+                  <input type="password" className="signupFormInput" value={loginPassword} onChange={e => this.setState({ loginPassword: e.target.value })} />
+                </div>
                 <button
                   type="submit"
                   variant="raised"
                   className="signupFormButton"
-                  onClick={this.onCreateAccountButtonClick}
+                  onClick={this.onLogInButtonClick}
                 >
-            Create Account
+                  Log In
                 </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="signupFormRow">
-                <button
-                  type="submit"
-                  variant="raised"
-                  className="signupFormButton"
-                  onClick={this.onEmailSubmitButtonClick}
-                >
-                  Next
-                </button>
-              </div>
-              <div className="signupFormRow">
-              OR
-              </div>
-              <h3>Log In</h3>
-              <div className="signupFormRow">
-                Email Address:
-              </div>
-              <div className="signupFormRow">
-                <input type="email" className="signupFormInput" value={loginEmail} onChange={e => this.setState({ loginEmail: e.target.value })} />
-              </div>
-              <div className="signupFormRow">
-                Password:
-              </div>
-              <div className="signupFormRow">
-                <input type="password" className="signupFormInput" value={loginPassword} onChange={e => this.setState({ loginPassword: e.target.value })} />
-              </div>
-              <button
-                type="submit"
-                variant="raised"
-                className="signupFormButton"
-                onClick={this.onLogInButtonClick}
-              >
-                Log In
-              </button>
-            </>
-          )}
+              </>
+            )}
+          </div>
       </div>
     );
   }

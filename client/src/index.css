@@ -1,10 +1,10 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
+  color: #fff;
 }
 
 code {
@@ -41,10 +41,12 @@ li {
 
 button {
   font-size: 16px;
-  background-color: #ffcc2f;
-  border-color: #000;
+  background-color: #1DB954;
+  border-color: #1DB954;
   border-radius: 5px;
   padding: 10px;
+  color: #fff;
+  font-weight: bold;
 }
 
 .header {
@@ -53,12 +55,16 @@ button {
   left: 0;
   width: 100vw;
   height: 50px;
-  background-color: rgba(255,204,47, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: row;
   padding: 15px;
   justify-content: space-between;
   z-index: 1000;
+}
+
+.headerLogo {
+  color: #ffcc2f;
 }
 
 .headerLeft {
@@ -68,7 +74,7 @@ button {
 
 .menuIcon {
   width: 20px;
-  margin-top: 2px;
+  margin-top: 4px;
   margin-right: 15px;
 }
 
@@ -76,19 +82,21 @@ button {
   width: 100%;
   height: 2px;
   margin-bottom: 5px;
-  background-color: #000;
+  background-color: #fff;
 }
 
 .searchInput {
-  padding: 2px;
+  padding: 6px;
+  border-radius: 5px;
   width: 30vw;
+  border-width: 0;
 }
 
 .bookHScroll {
   width: 100vw;
   display: flex;
   flex-direction: row;
-  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .book {
@@ -145,13 +153,13 @@ button {
 }
 
 .bookDetailsPopup {
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.9);
   width: 86vw;
-  height: 85vh;
+  height: 83vh;
   position: fixed;
   top: 5vh;
   left: 7vw;
-  border: 1px solid #000;
+  border: 1px solid #2a2a2a;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -165,6 +173,7 @@ button {
   width: 130px;
   height: 200px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .bookDetailsPopupHeader {
@@ -178,16 +187,17 @@ button {
 .bookDetailsPopupCloseIcon {
   font-size: 25px;
   cursor: pointer;
-  padding: 3px;
+  padding: 3px 3px 0 0;
 }
 
 .bookDetailsPopupText {
   margin: 15px 15px 0px 15px;
+  font-size: 13px;
 }
 
 .bookDetailsPopupDescription {
   max-height: 30vh;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .readButton {
@@ -197,7 +207,7 @@ button {
 }
 
 .cart {
-  background: #fff;
+  background: rgba(42, 42, 42, 0.9);
   width: 100vw;
   height: 160px;
   position: fixed;
@@ -225,8 +235,6 @@ button {
 
 .addDeliveryDetailsButton {
   font-size: 12px;
-  background-color: #ffcc2f;
-  border-color: #000;
   border-radius: 5px;
   padding: 2px 10px 2px 10px;
 }
@@ -235,19 +243,31 @@ button {
   margin-top: 0px;
 }
 
+.signupForm {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .signupFormRow {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 8px;
+  align-items: stretch;
+  text-align: left;
+  font-size: 14px;
 }
 
 .signupFormInput {
-  border: 1px solid #000;
-  height: 10px;
-  width: 200px;
+  border-width: 0;
+  border-radius: 5px;
+  height: 15px;
   padding: 5px;
+  margin-top: 3px;
 }
 
 .signupFormButton {
-  width: 200px;
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -318,7 +338,7 @@ button {
   left: 0;
   bottom: 0;
   width: 200px;
-  background-color: #fff;
+  background: rgba(42, 42, 42, 0.9);
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -346,7 +366,7 @@ button {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #fff;
 }
 
 .myBooksMenuItem {

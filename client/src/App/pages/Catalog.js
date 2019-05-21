@@ -45,16 +45,13 @@ class Catalog extends React.Component<Props, State> {
   }
 
   render = () => {
-    let { books } = this.state;
-    const { selectedBook, cart, searchBarText } = this.state;
+    const { books, selectedBook, cart, searchBarText } = this.state;
 
     const searchText = searchBarText.trim().toLowerCase();
-    if (searchText.length) {
-      books = books.filter(b => b.title.toLowerCase().includes(searchText) || b.author.toLowerCase().includes(searchText))
-    }
+    const filteredBooks = !searchText.length ? books : books.filter(b => b.title.toLowerCase().includes(searchText) || b.author.toLowerCase().includes(searchText));
 
     const genreToBooks = {};
-    books.forEach(book => {
+    filteredBooks.forEach(book => {
       if (!genreToBooks[book.genre]) {
         genreToBooks[book.genre] = [];
       }
@@ -69,7 +66,7 @@ class Catalog extends React.Component<Props, State> {
           center={false}
           searchBarText={searchBarText}
           onSearchBarTextChange={this.onSearchBarTextChange} />
-        {books.length ? (
+        {filteredBooks.length ? (
           Object.keys(genreToBooks).map(genre => (
             <div key={genre} className="genre">
               <div className="genreHeading">
@@ -80,7 +77,7 @@ class Catalog extends React.Component<Props, State> {
           ))
         ) : (
           <div>
-            <h2>Loading Catalog...</h2>
+            <h2>{!books.length ? 'Loading Catalog...' : 'No Results'}</h2>
           </div>
         )
         }

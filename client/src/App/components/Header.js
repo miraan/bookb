@@ -39,7 +39,7 @@ class Header extends React.Component<Props, State> {
                 <div className="menuIconLine" />
               </div>
             ) : null}
-          <span>
+          <span className="headerLogo">
           BookB
           </span>
         </div>

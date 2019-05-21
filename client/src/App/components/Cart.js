@@ -24,7 +24,7 @@ const Cart = (props: Props) => {
         Reading Cart
         <Link to="./delivery">
           <button className="addDeliveryDetailsButton" type="submit" variant="raised" onClick={() => {}}>
-            Add Delivery Details &gt;&gt;
+            Arrange Delivery
           </button>
         </Link>
       </div>
