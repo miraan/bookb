@@ -35,7 +35,7 @@ export default class MyBooks extends React.Component<Props> {
     });
     return (
       <div className="App">
-        <Header showMenuIcon showSearchBar center={false} />
+        <Header showMenuIcon showSearchBar={false} center={false} />
         <h3 className="noTopMargin">My Books</h3>
         {this.renderBookOrders('Awaiting Delivery', statusToBookOrders.requested, true)}
         {this.renderBookOrders('Delivered', statusToBookOrders.delivered)}
