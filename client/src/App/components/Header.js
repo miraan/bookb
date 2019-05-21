@@ -50,7 +50,7 @@ class Header extends React.Component<Props, State> {
                 className="searchInput"
                 type="text"
                 placeholder="Search"
-                value={searchBarText || ''} 
+                value={searchBarText || ''}
                 onChange={onSearchBarTextChange ? (e) => onSearchBarTextChange(e.target.value) : () => {}} />
             </div>
           )
@@ -78,6 +78,11 @@ class Header extends React.Component<Props, State> {
           <div className="menuCloseIcon" onClick={this.onMenuButtonClick}>
             &times;
           </div>
+        </div>
+        <div className="menuItem">
+          <Link to="./">
+            How It Works
+          </Link>
         </div>
         <div className="menuItem">
           <Link to="./catalog">
