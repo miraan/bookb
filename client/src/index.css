@@ -58,6 +58,7 @@ button {
   flex-direction: row;
   padding: 15px;
   justify-content: space-between;
+  z-index: 1000;
 }
 
 .headerLeft {
@@ -132,7 +133,6 @@ button {
 
 .genre {
   margin-bottom: 10px;
-  z-index: -1;
 }
 
 .genreHeading {
