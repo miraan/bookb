@@ -19,7 +19,8 @@ export default class StripeClient {
   client: any
 
   constructor() {
-    this.client = stripe('sk_test_Y3RIifQvhBY08L6RqARwRaX3001RLLgyC4');
+    // this.client = stripe('sk_test_Y3RIifQvhBY08L6RqARwRaX3001RLLgyC4');
+    this.client = stripe('sk_live_dQ0fBU7bLwLO0XIIxECSHMvI00bCBWq5ne');
   }
 
   createCustomer: (User, string) => Promise<string> =

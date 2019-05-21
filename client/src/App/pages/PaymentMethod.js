@@ -32,7 +32,8 @@ export default class PaymentMethod extends React.Component<Props> {
     }
 
     return (
-      <StripeProvider apiKey="pk_test_bSMKb3xdVGaOYIsYJ1lYRSmR00Pzyrveg1">
+      // <StripeProvider apiKey="pk_test_bSMKb3xdVGaOYIsYJ1lYRSmR00Pzyrveg1">
+      <StripeProvider apiKey="pk_live_dsNNsB7wvIEC2bzINUUBOGwu00ldtqScAQ">
         <div className="App">
           <Header showMenuIcon showSearchBar={false} center={false} />
           <h3 className="noTopMargin">Add a Payment Card</h3>

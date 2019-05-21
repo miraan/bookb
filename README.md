@@ -27,3 +27,6 @@ Then add the line:
 ```
 0 0 1 * * sudo certbot renew >> /logs/certbot.log >/dev/null 2>&1
 ```
+
+
+zrkj-xazb-mxet-ecmd-twbm
