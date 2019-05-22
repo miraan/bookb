@@ -69,12 +69,15 @@ class Delivery extends React.Component<Props> {
 
     Api.createBookOrders(bookIds).then(response => {
       if (!response.success) {
-        alert('An error occurred, please try again. Error: ' + response.errorMessage);
+        alert('An error occurred. Error: ' + response.errorMessage);
         return;
       }
       LocalStorage.saveBookOrders(response.content.bookOrders);
       LocalStorage.saveCart({});
       nav('/deliveryConfirmed');
+    })
+    .catch(error => {
+      alert('An error occurred. Error: ' + error);
     })
   }
 }
