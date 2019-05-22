@@ -114,7 +114,7 @@ export default class UserRouter {
     })
     .then(user => {
       const subject = `Account Created (${user.email} - ${user.mobileNumber})`
-      const body = 'A user finished creating an account (adding a password, address and mobile number)';
+      const body = `A user finished creating an account (adding a password, address and mobile number). (${user.email} - ${user.mobileNumber})`;
       return Promise.all([user, this.emailClient.sendInternalEmail(subject, body)])
     })
     .then(([user, _]) => {
@@ -211,7 +211,7 @@ export default class UserRouter {
     })
     .then(user => {
       const subject = `User Subscribed to Plan ${user.planId} (${user.email} - ${user.mobileNumber})`
-      const body = 'A user just subscribed!';
+      const body = `A user just subscribed! Plan ${user.planId} (${user.email} - ${user.mobileNumber})`;
       return Promise.all([user, this.emailClient.sendInternalEmail(subject, body)])
     })
     .then(([user, _]) => {
@@ -274,13 +274,13 @@ export default class UserRouter {
       books.forEach(book => {
         booksById[book.id] = book;
       })
-      const bookOrdersText = bookOrders.map(bookOrder => {
+      const bookOrdersText = bookOrders.filter(bookOrder => bookOrder.status === 'requested').map(bookOrder => {
         const book = booksById[bookOrder.bookId];
         return `${book.title} by ${book.author} (ID ${book.id})`
       })
 
       const subject = `User Requested Books (Plan ${user.planId}) (${user.email} - ${user.mobileNumber})`
-      const body = `Books requested:\n${bookOrdersText.join('\n')}`
+      const body = `(Plan ${user.planId}) (${user.email} - ${user.mobileNumber})\nBooks requested:\n${bookOrdersText.join('\n')}`
 
       return Promise.all([bookOrders, this.emailClient.sendInternalEmail(subject, body)])
     })
@@ -330,8 +330,8 @@ export default class UserRouter {
     }
 
     this.postgresClient.cancelBookOrder(user.id, bookId).then(bookOrder => {
-      const subject = `User Cancelled Book Request ${user.planId} (${user.email} - ${user.mobileNumber})`
-      const body = `The user cancelled their request for book ID ${bookId}`;
+      const subject = `User Cancelled Book Request (Plan ${user.planId}) (${user.email} - ${user.mobileNumber})`
+      const body = `The user cancelled their request for book ID ${bookId}. (Plan ${user.planId}) (${user.email} - ${user.mobileNumber})`;
       return Promise.all([
         this.postgresClient.getBookOrders(user.id),
         this.emailClient.sendInternalEmail(subject, body)

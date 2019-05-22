@@ -396,6 +396,7 @@ a {
 
 .cancelBookOrderLink {
   color: #047BC6;
+  cursor: pointer;
 }
 
 .tutorial {
