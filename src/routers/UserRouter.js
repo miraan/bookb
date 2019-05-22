@@ -113,6 +113,11 @@ export default class UserRouter {
         : this.postgresClient.createUser(payload)
     })
     .then(user => {
+      const subject = `Account Created (${user.email} - ${user.mobileNumber})`
+      const body = 'A user finished creating an account (adding a password, address and mobile number)';
+      return Promise.all([user, this.emailClient.sendInternalEmail(subject, body)])
+    })
+    .then(([user, _]) => {
       const token = generateUserAuthenticationToken(user.id);
       res.status(200).json({
         success: true,
@@ -142,6 +147,11 @@ export default class UserRouter {
       if (user.password !== password) {
         throw new Error('Wrong password.');
       }
+      const subject = `Log In (${user.email} - ${user.mobileNumber})`
+      const body = 'A user just logged in.';
+      return Promise.all([user, this.emailClient.sendInternalEmail(subject, body)])
+    })
+    .then(([user, _]) => {
       const token = generateUserAuthenticationToken(user.id);
       res.status(200).json({
         success: true,
@@ -200,6 +210,11 @@ export default class UserRouter {
       return this.postgresClient.updateUser(user.id, {stripeSubscriptionId});
     })
     .then(user => {
+      const subject = `User Subscribed to Plan ${user.planId} (${user.email} - ${user.mobileNumber})`
+      const body = 'A user just subscribed!';
+      return Promise.all([user, this.emailClient.sendInternalEmail(subject, body)])
+    })
+    .then(([user, _]) => {
       res.status(200).json({
         success: true,
         content: { user },
@@ -249,9 +264,27 @@ export default class UserRouter {
       )
     })
     .then(results => {
-      return this.postgresClient.getBookOrders(user.id)
+      return Promise.all([
+        this.postgresClient.getBookOrders(user.id),
+        this.postgresClient.getBooks(),
+      ])
     })
-    .then(bookOrders => {
+    .then(([bookOrders, books]) => {
+      const booksById = {};
+      books.forEach(book => {
+        booksById[book.id] = book;
+      })
+      const bookOrdersText = bookOrders.map(bookOrder => {
+        const book = booksById[bookOrder.bookId];
+        return `${book.title} by ${book.author} (ID ${book.id})`
+      })
+
+      const subject = `User Requested Books (Plan ${user.planId}) (${user.email} - ${user.mobileNumber})`
+      const body = `Books requested:\n${bookOrdersText.join('\n')}`
+
+      return Promise.all([bookOrders, this.emailClient.sendInternalEmail(subject, body)])
+    })
+    .then(([bookOrders, _]) => {
       res.status(200).json({
         success: true,
         content: { bookOrders },
@@ -297,9 +330,14 @@ export default class UserRouter {
     }
 
     this.postgresClient.cancelBookOrder(user.id, bookId).then(bookOrder => {
-      return this.postgresClient.getBookOrders(user.id)
+      const subject = `User Cancelled Book Request ${user.planId} (${user.email} - ${user.mobileNumber})`
+      const body = `The user cancelled their request for book ID ${bookId}`;
+      return Promise.all([
+        this.postgresClient.getBookOrders(user.id),
+        this.emailClient.sendInternalEmail(subject, body)
+      ])
     })
-    .then(bookOrders => {
+    .then(([bookOrders, _]) => {
       res.status(200).json({
         success: true,
         content: { bookOrders },
