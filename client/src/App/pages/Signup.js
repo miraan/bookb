@@ -45,6 +45,7 @@ class Signup extends React.Component<Props, State> {
   }
 
   render = () => {
+    // LocalStorage.deleteLocalStorage();
     const user = LocalStorage.getUser();
 
     if (user && user.password) {

@@ -4,6 +4,7 @@ import { Router } from 'express';
 import passport from 'passport';
 import PostgresClient from '../clients/PostgresClient';
 import StripeClient from '../clients/StripeClient';
+import EmailClient from '../clients/EmailClient';
 import {generateUserAuthenticationToken} from '../flib/encryption';
 import {requireUserAuthentication} from '../flib/middleware';
 import {plans} from '../types';
@@ -17,16 +18,19 @@ export default class UserRouter {
 
   postgresClient: PostgresClient
   stripeClient: StripeClient
+  emailClient: EmailClient
 
   constructor(
     postgresClient: PostgresClient,
     stripeClient: StripeClient,
+    emailClient: EmailClient,
     path: string = '/api/user',
   ) {
     this.router = Router();
     this.path = path;
     this.postgresClient = postgresClient;
     this.stripeClient = stripeClient;
+    this.emailClient = emailClient;
     this.init();
   }
 
@@ -53,6 +57,11 @@ export default class UserRouter {
       return this.postgresClient.addEmail({ email })
     })
     .then(user => {
+      const subject = 'Email Entered: ' + email;
+      const body = 'A new email was entered in the signup flow: ' + email;
+      return Promise.all([user, this.emailClient.sendInternalEmail(subject, body)])
+    })
+    .then(([user, _]) => {
       res.status(200).json({
         success: true,
         content: {

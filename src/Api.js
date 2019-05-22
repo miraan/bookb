@@ -7,6 +7,7 @@ import passport from 'passport';
 import {Strategy} from 'passport-http-bearer';
 import PostgresClient from './clients/PostgresClient';
 import StripeClient from './clients/StripeClient';
+import EmailClient from './clients/EmailClient';
 import BookRouter from './routers/BookRouter';
 import UserRouter from './routers/UserRouter';
 import {getUserIdFromUserAuthenticationToken} from './flib/encryption';
@@ -17,14 +18,17 @@ export default class Api {
 
   postgresClient: PostgresClient
   stripeClient: StripeClient
+  emailClient: EmailClient
 
   constructor(
     postgresClient: PostgresClient,
     stripeClient: StripeClient,
+    emailClient: EmailClient,
   ) {
     this.express = express();
     this.postgresClient = postgresClient;
     this.stripeClient = stripeClient;
+    this.emailClient = emailClient;
 
     this.initPassport();
     this.initMiddleware();
@@ -87,7 +91,7 @@ export default class Api {
     const bookRouter = new BookRouter(this.postgresClient);
     this.express.use(bookRouter.path, bookRouter.router)
 
-    const userRouter = new UserRouter(this.postgresClient, this.stripeClient);
+    const userRouter = new UserRouter(this.postgresClient, this.stripeClient, this.emailClient);
     this.express.use(userRouter.path, userRouter.router)
 
     this.express.use((error: any, req: any, res: any, next: any) => {
