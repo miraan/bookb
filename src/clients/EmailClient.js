@@ -36,6 +36,8 @@ export default class EmailClient {
 
   sendInternalEmail = (subject: string, body: string) => Promise.all([
     'miraan.tabrez@gmail.com',
+    'abdikaliq.ige@merton.ox.ac.uk',
+    'jibril.gudal@st-hildas.ox.ac.uk',
   ].map(to => this.sendEmail(to, subject, body)))
 
   sendEmail = (to: string, subject: string, body: string) => {
