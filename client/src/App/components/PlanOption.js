@@ -21,7 +21,10 @@ const PlanOption = (props: Props) => (
       {props.plan.deliveryDeal}
     </div>
     <div className="planOptionRow">
-      £{(props.plan.pricePerMonth / 100).toFixed(2)} / month
+      7 Days Free Trial
+    </div>
+    <div className="planOptionRow">
+      Then £{(props.plan.pricePerMonth / 100).toFixed(2)} / month
     </div>
     <div className="planOptionRow planOptionButton" onClick={() => props.onChooseButtonClick(props.plan)}>
       Choose Plan
