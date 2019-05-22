@@ -65,6 +65,8 @@ export default class StripeClient {
   createSubscription = (stripeCustomerId: string,
     stripePlanId: string): Promise<StripeSubscription> => this.client.subscriptions.create({
     customer: stripeCustomerId,
+    trial_from_plan: true,
+    trial_period_days: 7,
     items: [
       {
         plan: stripePlanId,
