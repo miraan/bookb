@@ -37,6 +37,7 @@ export default class PaymentMethod extends React.Component<Props> {
         <div className="App">
           <Header showMenuIcon showSearchBar={false} center={false} />
           <h3 className="noTopMargin">Add a Payment Card</h3>
+          <span className="paymentText">You won't be charged until after your 7 day free trial, and you can cancel at any time.</span>
           <Elements>
             <CheckoutForm />
           </Elements>
