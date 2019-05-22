@@ -79,7 +79,7 @@ class Header extends React.Component<Props, State> {
             &times;
           </div>
         </div>
-        <div className="menuItem">
+        <div className="menuItem" onClick={this.onMenuButtonClick}>
           <Link to="./">
             Catalog
           </Link>
@@ -89,7 +89,7 @@ class Header extends React.Component<Props, State> {
         </div>
         {showLogOut
         ? <>
-            <div className="menuItem">
+            <div className="menuItem" onClick={this.onMenuButtonClick}>
               <Link to="./myBooks">
                 My Books
               </Link>
@@ -99,18 +99,18 @@ class Header extends React.Component<Props, State> {
             </div>
           </>
         : <>
-            <div className="menuItem">
+            <div className="menuItem" onClick={this.onMenuButtonClick}>
               <Link to="./signup">
                 Sign Up
               </Link>
             </div>
-            <div className="menuItem">
+            <div className="menuItem" onClick={this.onMenuButtonClick}>
               <Link to="./signup">
                 Log In
               </Link>
             </div>
           </>}
-        <div className="menuItem">
+        <div className="menuItem" onClick={this.onMenuButtonClick}>
           <Link to="./contact">
             Contact
           </Link>
@@ -121,11 +121,15 @@ class Header extends React.Component<Props, State> {
 
   onLogOutButtonPress = () => {
     LocalStorage.deleteLocalStorage();
+    const {showMenu} = this.state;
+    this.setState({ showMenu: !showMenu });
     nav('/');
   }
 
   onHowItWorksButtonPress = () => {
     LocalStorage.deleteSeenTutorial();
+    const {showMenu} = this.state;
+    this.setState({ showMenu: !showMenu });
     nav('/');
   }
 }
